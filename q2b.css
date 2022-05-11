@@ -1,0 +1,80 @@
+#navBar
+{
+	background-color: lightblue;
+	/* defining the nav bar as a flex container */
+	display: grid;
+	/* 5 columns per row as a default */
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.navBarHeadings, .navBarHeadings:link, 
+.navBarHeadings:visited, .navBarHeadings:hover, 
+.navBarHeadings:active 
+{
+	text-align: center;
+	text-decoration: none;
+}
+
+
+#daysWrapper
+{
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+	background-color: lightblue;
+	border: 1px solid darkblue;
+	border-radius: 15px 15px 15px 15px;
+	padding: 3%;
+}
+
+.daysInMonthA, .daysInMonthA:link, 
+.daysInMonthA:visited, .daysInMonthA:hover,
+.daysInMonthA:active
+{
+	margin: 2%;
+	border: 1px solid darkblue;
+	text-align: center;
+	text-decoration: none;
+	padding: 4%;
+	background-color: skyblue;
+}
+
+#addEventFormWrapper
+{
+	background-color: skyblue;
+	position: absolute;
+	margin-top: -350px;
+	margin-left: 20%;
+	border: 1px solid darkblue;
+}
+
+#addWalk
+{
+	padding: 5%;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+#exitButton
+{
+	padding: 0;
+}
+
+@media screen and (max-width: 55rem)
+{
+	#navBar
+	{
+		/* 3 columns per row when screen width reduces to below 55rem */
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+	.navBarHeadings:last-child
+	{
+		/* for even spacing in the second row of the nav bar */
+		grid-column: 3/-1;
+	}
+
+	#daysWrapper
+	{
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+	}
+}
+
