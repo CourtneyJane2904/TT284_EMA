@@ -5,7 +5,9 @@ class Calender
 		/* calculate values for daysInMonth and month attributes */
 		this.dateObj = new Date();
 		this.monthAsStr = this.currMonthAsStr();
+		this.yearAsStr = this.currYearAsStr();
 		this.daysInMonth = this.calcDaysInMonth();
+		this.currCalHTML = document.getElementById('calendar').innerHTML;
 	}
 
 	get getMonth()
@@ -25,6 +27,14 @@ class Calender
 		return month;
 	}
 
+	currYearAsStr()
+	{
+		const year = this.dateObj.getFullYear();
+		console.log(year);
+		return year;
+	}
+
+
 	calcDaysInMonth()
 	{
 		const currYear = this.dateObj.getFullYear();
@@ -36,13 +46,48 @@ class Calender
 
 	genHTML()
 	{
-		let calHTML = document.getElementById('calendar').innerHTML+"<h4 id=\"monthHeading\">"+this.monthAsStr+"</h4>\n<div id=\"daysWrapper\">\n";
+		let calHTML = "<h4 id=\"monthHeading\">"+this.monthAsStr+" "+this.yearAsStr+"</h4>\n<div id=\"daysWrapper\">\n";
 		for(let i=1 ; i <= this.daysInMonth ; i++)
 		{
-			calHTML += "<p class=\"daysInMonthA\" tabindex=\"2\" id=\"day"+i+"\">"+i+"</p>\n";
+			calHTML += "<p class=\"daysInMonthA\" tabindex=\"2\" id=\""+i+this.monthAsStr+this.yearAsStr+"\">"+i+"</p>\n";
 		}
 		console.log(calHTML);
-		document.getElementById('calendar').innerHTML = calHTML+"</div>";
+		document.getElementById('calendar').innerHTML = calHTML+"</div><button id=\"back\" class=\"chMonth\"><</button><button id=\"forward\" class=\"chMonth\">></button>";
+		this.changeMonth();
+	}
+	changeMonth()
+	{
+		let chMonthButtons = document.getElementsByClassName("chMonth");
+		for (let i = 0 ; i < chMonthButtons.length ; i++)
+		{
+			chMonthButtons[i].addEventListener("click", this.calcNewMonth.bind(this)
+			);
+		}
+	}
+
+	calcNewMonth(e)
+	{
+		if (e.target.id === "forward")
+		{
+			this.dateObj.setMonth(this.dateObj.getMonth()+1);
+			this.monthAsStr = this.currMonthAsStr();
+			this.yearAsStr = this.currYearAsStr();
+			this.daysInMonth = this.calcDaysInMonth();
+		}
+		else
+		{
+			this.dateObj.setMonth(this.dateObj.getMonth()-1);
+			this.monthAsStr = this.currMonthAsStr();
+			this.yearAsStr = this.currYearAsStr();
+			this.daysInMonth = this.calcDaysInMonth();
+		}
+		this.genHTML();
+		if (document.getElementById("addEventFormWrapper") != null)
+		{
+			evtWindowsObj.destroyWindow();
+		}
+		evtWindowsObj.openWindow();
+
 	}
 }
 
@@ -83,6 +128,7 @@ class eventWindows
 					<label for "comments">Comments</label>\n
 					  <textarea id="comments" rows="4"></textarea>\n
 					<input type="hidden" id="sessionID" name="sessionID" value="abcd1234-ee56-ff78-9090">
+					<input type="hidden" id="walkDate" name="walkDate" value="`+this.activeID+`">
 					<input type="submit" value="Submit" name="submit">
 				</form>\n
 			</div>
@@ -92,6 +138,7 @@ class eventWindows
 		this.currWindow = "form";
 		document.getElementById("exitButton").addEventListener("click",this.destroyWindow.bind(this),false);
 		this.openWindow();
+		calObj.changeMonth();
 	}
 
 	openWindow()
@@ -111,10 +158,7 @@ class eventWindows
 
 	destroyWindow()
 	{
-		if (this.currWindow === "form")
-		{
-			 document.getElementById("addEventFormWrapper").remove();
-		}
+		document.getElementById("addEventFormWrapper").remove();
 	}
 
 	closeWindow()
@@ -135,6 +179,7 @@ class eventWindows
 }
 
 const calObj = new Calender();
-calObj.genHTML();
 const evtWindowsObj = new eventWindows();
+
+calObj.genHTML();
 evtWindowsObj.openWindow();
