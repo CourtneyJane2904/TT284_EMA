@@ -1,3 +1,25 @@
+html
+{
+	font-family: sans-serif;
+	color: darkslategray;
+}
+
+h2
+{
+	margin: 2%;
+	font-size: 100%;
+}
+
+h3
+{
+	font-size: 90%;
+}
+
+.centered
+{
+	text-align: center;
+}
+
 #navBar
 {
 	background-color: lightblue;
@@ -11,52 +33,81 @@
 .navBarHeadings:visited, .navBarHeadings:hover, 
 .navBarHeadings:active 
 {
-	text-align: center;
 	text-decoration: none;
+	color: darkslategray;
 }
 
+.navBarHeadings:hover, 
+.navBarHeadings:active 
+{
+	font-size: 110%;
+}
+
+.blueBorder
+{
+	border: 1px solid darkblue;
+}
+
+.curved
+{
+	border-radius: 15px 15px 15px 15px;
+}
 
 #daysWrapper
 {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
 	background-color: lightblue;
-	border: 1px solid darkblue;
-	border-radius: 15px 15px 15px 15px;
 	padding: 3%;
 }
 
+
 .daysInMonthA, .daysInMonthA:link, 
 .daysInMonthA:visited, .daysInMonthA:hover,
-.daysInMonthA:active
+.daysInMonthA:active, .chMonth
 {
 	margin: 2%;
-	border: 1px solid darkblue;
-	text-align: center;
 	text-decoration: none;
 	padding: 4%;
 	background-color: skyblue;
+}
+
+.chMonth
+{
+	margin: 0.5%;
+	padding: 1%;
+}
+
+.greyButt:hover
+{
+	background-color: lightgrey;
+}
+
+.greyButt:active
+{
+	background-color: grey;
+}
+
+.formButt
+{
+	background-color: lightblue;
 }
 
 #addEventFormWrapper
 {
 	background-color: skyblue;
 	position: absolute;
-	margin-top: -350px;
-	margin-left: 20%;
-	border: 1px solid darkblue;
+	margin-top: -450px;
+	margin-left: 30%;
+	margin-right: auto;
 }
 
 #addWalk
 {
-	padding: 5%;
+	padding: 3%;
+	margin: 1%;
 	display: grid;
-	grid-template-columns: 1fr 1fr;
-}
-
-#exitButton
-{
-	padding: 0;
+	grid-template-columns: 1fr 4fr;
 }
 
 @media screen and (max-width: 55rem)
@@ -76,5 +127,24 @@
 	{
 		grid-template-columns: 1fr 1fr 1fr 1fr;
 	}
+
+	#addEventFormWrapper
+	{
+		margin-left: 25%;
+		padding-right: 5%;
+		width: 50%;
+	}
+
+	#addWalk
+	{
+		grid-template-columns: 1fr;
+		width: 100%;
+	}
+
+	#addWalk textarea
+	{
+		resize: vertical;
+	}
+
 }
 
